@@ -134,7 +134,26 @@ In this regard, the problem becomes a nonlinear root-finding problem that can be
 
 \subsubsection{Newton-Raphson Method}
 
+The Newton-Raphson method, often simply called Newton's method, has its origins in the late 17th century. Isaac Newton first described a rudimentary version of the method in 1669, strictly applying it to polynomial equations by substituting successive approximations (Ypma, 1995). In 1690, Joseph Raphson published a simplified, generalized version of Newton's process that abstracted the method into the iterative sequence we recognize today, though still primarily for polynomials (Ypma, 1995). It was not until 1740 that Thomas Simpson applied formalized calculus and derivatives to extend the method to non-linear and transcendental functions, finalizing the modern formula \parencite{ypma1995historical}. Mathematically, the method relies on approximating a function near a point pn by its tangent line and using the x-intercept of the tangent as the next approximation. This process uses local linearization based on the first-order Taylor series expansion (Burden et al., 2015). If pn is close to the true root p, setting the first-order Taylor expansion equal to zero yields the Newton iteration formula for the next approximation:
+
+\begin{equation*}
+    p_{n+1} = p_n - \frac{f(p_n)}{f'(p_n)}
+\end{equation*}
+
+A major advantage of Newton's method is its rate of convergence. If $f(p) = 0$ and $f'(p) \neq 0 $(meaning p is a simple root), the method converges at least quadratically for an initial guess $p0$ that is sufficiently close to p \parencite{burden2016numerical}. However, if the root has a multiplicity greater than 1, meaning $f'(p) = 0$, the method typically loses its quadratic convergence and slows down to a linear rate, which may cause it to behave poorly. Additionally, because the method requires the evaluation of both the function $f(x)$ and its first derivative $f'(x)$ at every step, it can be computationally expensive or difficult if the derivative is complex to isolate \parencite{burden2016numerical}.
+
+
+
 \subsubsection{Halley's Method}
+
+Halley's method is a root-finding algorithm that serves as a higher-order extension of Newton's method. It was introduced in 1694 by the English astronomer and mathematician Edmond Halley, who is most famous for computing the orbit of the eponymous Halley's Comet \parencite{scavo1995geometry}. Working extensively with orbital mechanics, Halley sought a method that converged faster than what Newton and Raphson had established, specifically to solve complex astronomical calculations like Kepler's equation. While the Newton-Raphson method relies on a linear approximation using the first derivative, Halley's method uses a quadratic approximation of the function \parencite{scavo1995geometry}. It incorporates the second derivative to account for the curvature of the function, which allows the iterative steps to approximate the non-linear behavior of the function much more accurately than a straight tangent line. The iterative formula for Halley's method incorporates the second derivative $f''(pn)$ and is expressed as:
+
+\begin{equation*}
+    p_{n+1} = p_n - \dfrac{2f(p_n) f'(p_n)}{2[f'(p_n)]^2 - f(p_n) f''(p_n)}
+\end{equation*}
+
+Because it utilizes up to the second derivative, Halley's method is more computationally expensive per iteration than Newton's method. However, it achieves cubic convergence for simple roots \parencite{burden2016numerical}. This means that, under optimal conditions, the number of correct digits roughly triples with each iteration, often resulting in fewer total iterations required to reach a highly accurate root, making it highly stable even under difficult initial conditions.
+
 
 \subsection{ Multi-Criteria Decision Making \& Simple Additive Weighting}
 
