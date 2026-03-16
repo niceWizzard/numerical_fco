@@ -19,6 +19,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{siunitx}
+\usepackage{fancyvrb}
 \usepackage{multirow}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
@@ -76,7 +77,7 @@
 
 \fancyfoot[R]{\thepage}
 \fancyhead[L]{Comparison of Numerical Iterative Methods in Solving Eccentric Anomalies In Kepler's Equation For Orbital Motion}
-\onehalfspacing
+\doublespacing
 
 \setcounter{page}{1} % Reset the page counter to 1
 
@@ -357,12 +358,12 @@ Table \ref{tab:test-summary} below summarizes the parameters used in the numeric
     \end{tabular}
 \end{table}
 
-The table \ref{tab:result_1}  below shows the results of the solutions of each method in solving for the first case where E0 = M. It can be seen that Halley's method converged the fastest with only 6 iterations and had the smallest residual of all the methods and had an average computation time of 7 $\mu$s and 0.0103 standard deviation. Lastly, Newton-Raphson converged on 44 iterations as also observed by Ozuomba (2014) with the same parameters given.
+The table \ref{tab:test-case-1}  below shows the results of the solutions of each method in solving for the first case where E0 = M. It can be seen that Halley's method converged the fastest with only 6 iterations and had the smallest residual of all the methods and had an average computation time of 7 $\mu$s and 0.0103 standard deviation. Lastly, Newton-Raphson converged on 44 iterations as also observed by Ozuomba (2014) with the same parameters given.
 
 \begin{table}[H]
     \centering
     \caption{Performance Comparison for Test Case 1}
-    \label{tab:result_1}
+    \label{tab:test-case-1}
     \vspace{2mm}
     \begin{tabularx}{\textwidth}{clcccccc}
         \toprule
@@ -376,88 +377,85 @@ The table \ref{tab:result_1}  below shows the results of the solutions of each m
     \end{tabularx}
 \end{table}
 
-The results of the second case is shown in Table \ref{tab:result-2} where Halley's method still outpaced the rest in terms of convergence with iteration of only 3. Newton followed with 5 iterations converging with the same residual. In terms of runtime, Fixed-point method took the longest with an average of 7 $\mu$s while Newton computed the fastest with only 3.49 $\mu$s followed closely by Halley's method of around 3.6 $\mu$s.
+The results of the second case is shown in Table \ref{tab:test-case-2} where Halley's method still outpaced the rest in terms of convergence with iteration of only 3. Newton followed with 5 iterations converging with the same residual. In terms of runtime, Fixed-point method took the longest with an average of 7 $\mu$s while Newton computed the fastest with only 3.49 $\mu$s followed closely by Halley's method of around 3.6 $\mu$s.
 
 
-\begin{table}[H]
+\begin{table}[h]
     \centering
-    \caption{Performance Comparison for Test Case 2}
-    \label{tab:result-2}
+    \caption{Performance Metrics Comparison of Numerical Methods}
+    \label{test-case-2}
     \vspace{2mm}
-    \begin{tabularx}{\textwidth}{clcccccc}
+    \begin{tabular}{l c c c c c c}
         \toprule
-        Method & Root (Rad) & Iterations & Avg ($\mu$s) & Std Dev ($\mu$s) & Best ($\mu$s) & Residual Error \\
+        Method & Root (Rad) & Iterations & Avg (\si{\micro\second}) & Std Dev (\si{\micro\second}) & Best (\si{\micro\second}) & Residual Error \\
         \midrule
-         Halley & 0.912288 & 6 & 7.1471 & 0.0103 & 7.1252 & $5.55 \times 10^{-17}$ \\
-         Secant & 0.912288 & 7 & 4.6315 & 0.0087 & 4.6210 & $6.19 \times 10^{-14}$ \\
-         Fixed Point & 0.912276 & 26 & 8.5263 & 0.0149 & 8.4946 & $4.70 \times 10^{-06}$ \\
-         Newton & 0.912288 & 44 & 30.8913 & 0.4835 & 30.5227 & $4.27 \times 10^{-12}$ \\
+        Halley      & 0.912288 & 3  & 3.5986 & 0.0432 & 3.5394 & $5.55 \times 10^{-17}$ \\
+        Newton      & 0.912288 & 5  & 3.4938 & 0.0447 & 3.4495 & $5.55 \times 10^{-17}$ \\
+        Secant      & 0.912288 & 6  & 4.0360 & 0.0649 & 3.9674 & $1.33 \times 10^{-09}$ \\
+        Fixed Point & 0.912276 & 21 & 7.0683 & 0.3816 & 6.8655 & $4.65 \times 10^{-06}$ \\
         \bottomrule
-    \end{tabularx}
+    \end{tabular}
 \end{table}
 
-Halley's method still converged the fastest still with 3 iterations and a computation time of 3.69 $\mu$s as shown in Table. Newton's method however, improved to 4 iterations in the third case while still being the fastest in computation time with just around 2.87 $\mu$s. Both Halley's and Newton-Raphson methods had the same residual error.
+Halley's method still converged the fastest still with 3 iterations and a computation time of 3.69 $\mu$s as shown in Table \ref{tab:test-case-3}. Newton's method however, improved to 4 iterations in the third case while still being the fastest in computation time with just around 2.87 $\mu$s. Both Halley's and Newton-Raphson methods had the same residual error.
 
 
-\begin{table}[H]
+\begin{table}[h]
     \centering
     \caption{Performance Comparison for Test Case 3}
-    \label{tab:result-3}
-    \vspace{2mm}
-    \begin{tabularx}{\textwidth}{clcccccc}
+    \label{tab:test-case-3}
+    \begin{tabular}{l c c c c c c}
         \toprule
-        Method & Root (Rad) & Iterations & Avg ($\mu$s) & Std Dev ($\mu$s) & Best ($\mu$s) & Residual Error \\
+        Method & Root (Rad) & Iterations & Avg ($\mu\text{s}$) & Std Dev ($\mu\text{s}$) & Best ($\mu\text{s}$) & Residual Error \\
         \midrule
-         Halley & 0.912288 & 6 & 7.1471 & 0.0103 & 7.1252 & $5.55 \times 10^{-17}$ \\
-         Secant & 0.912288 & 7 & 4.6315 & 0.0087 & 4.6210 & $6.19 \times 10^{-14}$ \\
-         Fixed Point & 0.912276 & 26 & 8.5263 & 0.0149 & 8.4946 & $4.70 \times 10^{-06}$ \\
-         Newton & 0.912288 & 44 & 30.8913 & 0.4835 & 30.5227 & $4.27 \times 10^{-12}$ \\
+        Halley      & 0.912288 & 3  & 3.6945 & 0.0112 & 3.6787 & $5.55 \times 10^{-17}$ \\
+        Newton      & 0.912288 & 4  & 2.8724 & 0.0237 & 2.8420 & $5.55 \times 10^{-17}$ \\
+        Secant      & 0.912288 & 6  & 4.0717 & 0.0596 & 4.0346 & $3.24 \times 10^{-14}$ \\
+        Fixed Point & 0.912301 & 17 & 5.6210 & 0.0726 & 5.5643 & $5.07 \times 10^{-06}$ \\
         \bottomrule
-    \end{tabularx}
+    \end{tabular}
 \end{table}
-For the last trial, Halley's method now converged to 2 iterations and an average runtime of 2.54 $\mu$s, followed by Newton's method of 3 iterations and an average runtime of 2.18 $\mu$s with both methods resolving to the same residual.
-
-\begin{table}[H]
+Table \ref{tab:test-case-4} shows the results for the last case, where Halley's method now converged to 2 iterations and an average runtime of 2.54 $\mu$s, followed by Newton's method of 3 iterations and an average runtime of 2.18 $\mu$s with both methods resolving to the same residual.
+\begin{table}[h]
     \centering
     \caption{Performance Comparison for Test Case 4}
-    \label{tab:result-4}
-    \vspace{2mm}
-    \begin{tabularx}{\textwidth}{clcccccc}
+    \label{tab:test-case-4}
+    \begin{tabular}{l c c c c c c}
         \toprule
-        Method & Root (Rad) & Iterations & Avg ($\mu$s) & Std Dev ($\mu$s) & Best ($\mu$s) & Residual Error \\
+        Method & Root (Rad) & Iterations & Avg ($\mu\text{s}$) & Std Dev ($\mu\text{s}$) & Best ($\mu\text{s}$) & Residual Error \\
         \midrule
-         Halley & 0.912288 & 6 & 7.1471 & 0.0103 & 7.1252 & $5.55 \times 10^{-17}$ \\
-         Secant & 0.912288 & 7 & 4.6315 & 0.0087 & 4.6210 & $6.19 \times 10^{-14}$ \\
-         Fixed Point & 0.912276 & 26 & 8.5263 & 0.0149 & 8.4946 & $4.70 \times 10^{-06}$ \\
-         Newton & 0.912288 & 44 & 30.8913 & 0.4835 & 30.5227 & $4.27 \times 10^{-12}$ \\
+        Halley      & 0.912288 & 2  & 2.5419 & 0.0071 & 2.5282 & $5.55 \times 10^{-17}$ \\
+        Newton      & 0.912288 & 3  & 2.1880 & 0.0082 & 2.1728 & $5.55 \times 10^{-17}$ \\
+        Secant      & 0.912288 & 5  & 3.5023 & 0.0245 & 3.4785 & $3.16 \times 10^{-13}$ \\
+        Fixed Point & 0.912298 & 14 & 4.6783 & 0.0212 & 4.6555 & $3.91 \times 10^{-06}$ \\
         \bottomrule
-    \end{tabularx}
+    \end{tabular}
 \end{table}
 
-For all the trials, Halley's method consistently placed first in terms of the number of iterations needed to find the root with Newton-Raphson closely following except for the first case where it struggled to find the root. However, Newton-Raphson method consistently outpaced every method in terms of the average runtime it took to find the root which is then followed closely by the Halley's method. Halley's method can be considered better than Newton-Raphson in terms of convergence, however, due to the complexity which requires the third derivative of the function, Newton-Raphson is simpler. 
+For all the cases, Halley's method consistently placed first in terms of the number of iterations needed to find the root with Newton-Raphson closely following except for the first case where it struggled to find the root. However, Newton-Raphson method consistently outpaced every method in terms of the average runtime it took to find the root which is then followed closely by the Halley's method. Halley's method can be considered better than Newton-Raphson in terms of convergence, however, due to the complexity which requires the second derivative of the function, Newton-Raphson is simpler. 
 
 To determine which numerical root finding method offers the best in terms of convergence and runtime, Simple Additive weighting was conducted and the results are shown in Table \ref{tab:saw-result-1} where for each test case, final SAW score was calculated. The saw score shown illustrates that Halley outranks 3 out of four test cases in terms of iterations, average runtime, and standard deviation while Newton-Raphson only ranks higher in test case 3.
 
 \begin{table}[H]
     \centering
-    \caption{Multi-row Comparison of SAW Scores}
+    \caption{Multi-row Comparison of SAW Scores (Halley Priority)}
     \label{tab:saw-result-1}
     \vspace{2mm}
-    \begin{tabular}{c l c} % 'c' for centered columns
+    \begin{tabular}{clc}
         \toprule
         \textbf{Test Case} & \textbf{Method} & \textbf{SAW Score} \\
         \midrule
-        \multirow{2}{*}{Test 1} & Newton-Raphson & 0.8421 \\
-                                & Halley's Method & 0.9567 \\
+        \multirow{2}{*}{Test 1} & Halley's Method & 0.245710 \\
+                                & Newton-Raphson & 0.041955 \\
         \midrule
-        \multirow{2}{*}{Test 2} & Newton-Raphson & 0.7134 \\
-                                & Halley's Method & 0.8922 \\
+        \multirow{2}{*}{Test 2} & Halley's Method & 0.644104 \\
+                                & Newton-Raphson & 0.391611 \\
         \midrule
-        \multirow{2}{*}{Test 3} & Newton-Raphson & 0.6544 \\
-                                & Halley's Method & 0.9103 \\
+        \multirow{2}{*}{Test 3} & Halley's Method & 0.450959 \\
+                                & Newton-Raphson & 0.453925 \\
         \midrule
-        \multirow{2}{*}{Test 4} & Newton-Raphson & 0.6544 \\
-                                & Halley's Method & 0.9103 \\
+        \multirow{2}{*}{Test 4} & Halley's Method & 0.963610 \\
+                                & Newton-Raphson & 0.561955 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -481,9 +479,13 @@ While Table \ref{tab:saw-result-1} shows the individual winner per test case, Ta
 
 \section{Conclusion}
 
-This study evaluated the performance of the Newton-Raphson and Halley's numerical methods in solving Kepler's Equation for high-eccentricity orbits ($e = 0.999$). By analyzing four distinct test cases with varying initial conditions ($E_0$), the research successfully identified the critical trade-offs between mathematical convergence and computational execution.
-The findings reveal that Halley's method is the superior algorithm in terms of mathematical convergence, consistently requiring fewer iterations than the Newton-Raphson method. This was particularly evident in Case 1, where a poor initial guess ($E_0 = M$) caused the Newton-Raphson method to struggle, requiring 44 iterations to converge—a result that aligns with previous findings by Ozuomba (2014). Conversely, the Newton-Raphson method demonstrated higher computational efficiency in cases with better initial approximations, consistently achieving faster average runtimes (as low as 2.18 $\mu$s) due to its lower algorithmic complexity.
-However, the Simple Additive Weighting (SAW) analysis, which integrated iteration count, average runtime, and stability (standard deviation), provided a holistic ranking that favored Halley's method. With an average SAW score of 0.57 against Newton-Raphson's 0.36, Halley's method proved to be the more robust and reliable solver. While Newton-Raphson is faster in "steady-state" scenarios, Halley's method's ability to maintain rapid convergence under difficult initial conditions makes it the more effective choice for the high-stress numerical environments typical of satellite navigation.
+In conclusion, the study evaluated the performance of two numerical root finding methods, the Newton-Raphson and Halley's numerical methods in solving Kepler's Equation for high-eccentricity orbits with e = 0.999. Upon analyzing four
+
+distinct test cases with varying initial conditions ($E0$) as adapted from the study of \textcite{ozuomba2014comparative}, the study was able to identify the critical trade-offs between mathematical convergence and computational execution.
+
+The findings of the study indicate that Halley's method is better in terms of mathematical convergence, requiring fewer iterations compared to the Newton-Raphson method to find a solution.  Newton-Raphson method also struggles with poor initial guess, as evident in test case 1, where it took 44 iterations to converge to a solution. On the other hand, the Newton-Raphson method showed higher computational efficiency in cases with better initial approximations and consistently achieving faster average runtimes (as low as 2.18 µs) most likely due to its lower algorithmic complexity compared to Halley's method which requires the first and the second derivatives of the function
+
+Upon analysis using Simple Additive Weighting (SAW), where the criteria were iteration count, average runtime, and stability (standard deviation), a ranking that favored Halley's method was found. With a mean SAW score of $0.57$ against Newton-Raphson's $0.36$, Halley's method was shown to be a more reliable solver for solving the eccentric anomaly in Keppler's equation. While Newton-Raphson is little bit faster in some scenarios, Halley's method's is able to maintain rapid convergence under difficult initial conditions makes it the more effective choice.
 
 \section{Recommendations}
 
@@ -504,6 +506,64 @@ Based on the results and conclusions of this study, the following are recommende
 
 \appendix
 \section{Appendix}
+
+\subsection{Codes}
+
+\subsubsection{Newton-Raphson Method}
+
+\begin{Verbatim}[
+    frame=single, 
+    framesep=10pt, 
+    label=Python: Newton-Raphson Implementation,
+    fontfamily=courier,
+    fontsize=\small
+]
+from typing import Callable, Optional, Tuple
+
+def newtons_method(
+    f: Callable[[float], float], 
+    df: Callable[[float], float], 
+    p0: float, 
+    tol: float=1e-5, 
+    n0: int=100,
+) -> Optional[Tuple[float, int]]:
+    i: int = 1
+    while i <= n0:
+        p: float = p0 - f(p0) / df(p0)
+        abs_error = abs(p - p0)
+        
+        if abs_error < tol:
+            return (p, i)
+        
+        i += 1
+        p0 = p
+        
+    print("Newton did not converge after", n0, "iterations.")
+    return None
+\end{Verbatim}
+
+\subsubsection{Halley's Method}
+\begin{Verbatim}[frame=single, framesep=10pt, label=Python: Halley's Method]
+def solve_halley(f, df, ddf, E_n, tol=1e-5, iter=100):
+    cycles = 0
+    for i in range(iter):
+        cycles += 1
+        f_val = f(E_n)
+        df_val = df(E_n)
+        ddf_val = ddf(E_n)
+        
+        # Halley's Step Formula
+        numerator = 2 * f_val * df_val
+        denominator = 2 * (df_val**2) - f_val * ddf_val
+        correction = numerator / denominator
+        
+        E_next = E_n - correction
+        
+        if abs(E_next - E_n) < tol:
+            return E_next, cycles
+        E_n = E_next
+    return None
+\end{Verbatim}
 
 
 \end{document}
