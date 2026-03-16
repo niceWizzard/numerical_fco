@@ -1,8 +1,5 @@
 def solve_halley(f, df, ddf,E_n, tol=1e-5, iter=100):
     cycles = 0
-    print(f"{'Cycle':<10} | {'E (degrees)':<20} | {'Correction'}")
-    print("-" * 50)
-    
     for i in range(iter):
         cycles += 1
         f_val = f(E_n)
