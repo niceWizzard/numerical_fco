@@ -31,41 +31,49 @@ class KeplerBenchmarker:
         return fixed_point_iteration(self.f, self.g, self.E0)
 
     def __do_secant(self):
-        return secant_method(self.f, self.M, self.M+self.e)
+        return secant_method(self.f, self.E0, self.E0+self.e)
 
     def __do_halley(self):
         return solve_halley(self.f, self.df,self.ddf, self.E0)
 
-    def run_benchmark(self) -> pd.DataFrame:
+    def run_benchmark(self, num_runs: int = 10_000, repeats: int = 10) -> pd.DataFrame:
         """
-        Executes and benchmarks the solver functions, returning a DataFrame 
-        with results in both Radians and Degrees.
+        Executes and benchmarks solver functions with statistical sampling.
+        'num_runs' is the number of loops inside each sample.
+        'repeats' is the number of samples collected to calculate Std Dev.
         """
         methods = {
-            ("Bisection", self.__do_bisection),
-            ("Newton", self.__do_newton),
-            ("Fixed Point", self.__do_fixed_point),
-            ("Secant", self.__do_secant),
-            ("Halley", self.__do_halley),
+            "Newton": self.__do_newton,
+            "Halley": self.__do_halley,
         }
 
         results = []
         
-        for name, method in methods:
-            start_time = timeit.default_timer()
+        for name, method in methods.items():
+            # Get the root and iterations once (assuming they are deterministic)
             root_rad, iterations = method()
-            end_time = timeit.default_timer()
-            
-            duration = (end_time - start_time) * 1_000_000 # microseconds
             residual = abs(self.f(root_rad))
+
+            # Collect multiple samples (each sample is 'num_runs' executions)
+            # returns a list of total times per sample
+            raw_sample_times = timeit.repeat(method, repeat=repeats, number=num_runs)
+            
+            # Convert each total sample time into microseconds per single execution
+            durations_us = [(t / num_runs) * 1_000_000 for t in raw_sample_times]
+            
+            # Statistical calculations
+            avg_duration = np.mean(durations_us)
+            std_dev = np.std(durations_us)
+            best_time = np.min(durations_us)
             
             results.append({
                 "Method": name,
-                "Root (Rad)": root_rad,
-                "Root (Deg)": np.rad2deg(root_rad), # Conversion added here
+                "Root (Rad)": round(root_rad, 8),
                 "Iterations": iterations,
-                "Residual Error": residual,
-                "Runtime (μs)": round(duration, 3)
+                "Avg (μs)": round(avg_duration, 4),
+                "Std Dev (μs)": round(std_dev, 4),
+                "Best (μs)": round(best_time, 4),
+                "Residual Error": f"{residual:.2e}"
             })
             
         return pd.DataFrame(results).sort_values(by="Iterations")
