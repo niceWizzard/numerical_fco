@@ -35,6 +35,7 @@
 % change font style to ariel
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
+\graphicspath{img}
 
 
 
@@ -60,11 +61,15 @@
     \end{center}
     \newpage
     \begin{abstract}
-    \onehalfspacing
+    \doublespacing
     \normalsize
 
-\end{abstract}
+    This study evaluated the performance of Newton-Raphson and Halley's method in solving eccentric anomaly in Keppler's first law. Since the equation is a transcendental equation, solving it algebraically is impossible and it requires numerical methods to solve. This study involves the comparison of both methods and determine whether Halley's method outperforms Newton-Raphson method not only in convergence rate but in other criteria such as execution time. Using python programming language and relevant packages, both methods were implemented and tested with four different starting values. The convergence rate, average execution time, and standard deviation was recorded. Simple Additive Weighting (SAW) was used to score the algorithms in the mentioned metrics with equal weights. The results showed that Halley's method outperformed Newton-Raphson method not only in convergence rate but also in average execution time regardless of it's complexity. The study also highlighted the significance of starting values for numerical methods, in particular, to finding the eccentric anomaly in Kepler's first law. The findings of this study contribute to the understanding of numerical methods for solving real world problems that involve transcendental equations.
+
+
+    \end{abstract}
     \thispagestyle{empty}
+    \newpage
     \tableofcontents
     \listoftables
     \thispagestyle{empty}
@@ -83,11 +88,43 @@
 
 \section{Introduction}
 
-For centuries, early astronomers believed that the Earth is the center of the universe, and that other planets revolved around it. The geocentric model, or the Ptolemaic system, is an astronomical concept that believes that Earth is the center of the universe, and that stars such as the Sun, Moon, and other planets revolve around it in circular orbits \parencite{sheposh2023geocentric}. This geocentric view was established by a Greek astronomer named Claudies Ptolemaeus in the second century, and would dominate scientific thought due to its alignment with religious beliefs until the arrival of Nicolaus Copernicus, which introduced a heliocentric model back in the sixteenth century. Copernicus  proposed that the Sun, not the Earth, was the center of the Solar System     \parencite{rochesterCopernican}. This model was called heliocentric, as the Earth is just another planet outward from the sun, and the Moon is the one that orbits the Earth, not the sun.
+For centuries, early astronomers believed that the Earth is the center of the universe, and that other planets revolved around it. The geocentric model, or the Ptolemaic system, is an astronomical concept that believes that Earth is the center of the universe, and that stars such as the Sun, Moon, and other planets revolve around it in circular orbits \parencite{sheposh2023geocentric}. This geocentric view was established by a Greek astronomer named Claudies Ptolemaeus in the second century, and would dominate scientific thought due to its alignment with religious beliefs until the arrival of Nicolaus Copernicus, which introduced a heliocentric model back in the sixteenth century. Copernicus  proposed that the Sun, not the Earth, was the center of the Solar System     \parencite{rochesterCopernican}. This model was called heliocentric, as the Earth is just another planet outward from the sun, and the Moon is the one that orbits the Earth, not the sun as shown in Figure \ref{fig:helio}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Heliocentric Model of the Solar System}
+    \label{fig:helio}
+    \includegraphics[width=0.4\textwidth]{img/helio.png}
+\end{figure}
 
 In addition, there's also a prevailing view that thez celestial bodies around us moved in perfect circles, not until the early 17th century that Johannes Kepler, a German astronomer and a mathematician, proved that the planetary orbits do not move in perfect circles, but rather, in ellipses. According to \textcite{berkley2023planetary}, planetary orbits are the paths that planets follow as they travel around the Sun, defined as elliptical shapes rather than perfect circles. Furthermore, the role of gravity influences the speed of the orbiting planets based on their distance from the Sun, and that these planets move faster when they are closer, while the farthest planets move slower.
 
-These observations were not made possible by Kepler alone, but with the help of Tycho Brahe, a Danish astronomer, who provided decades of precise observational data of the stars and the planets. With the help of Brahe's meticulous planetary observations, Kepler was able to form his findings into three fundamental principles, now famously known as the Kepler's Laws of Planetary Motion. The first law, which is the law of ellipses, the second law, which is the law of equal areas, and the third law, which is the law of harmonies. National Aeronautics and Space Administration or \textcite{nasa2024orbits} said that in Kepler's first law, each planet's orbit about the Sun is an ellipse, and that the planets follows the ellipse in its orbit, and these planets constantly change their distance to Sun as they go around their orbit. In the second law, the imaginary line joining a planet and the Sun sweeps equal areas of space during equal time intervals as the planet orbits, which means that the planets' speed varies, where a planet is moving fastest when it's near or at perihelion, while it is slowest when it's at aphelion, or the farthest. Lastly, the third law of Kepler mentioned that  the squares of the orbital periods of the planets are directly proportional to the cubes of the semi-major axes of their orbits, meaning, the farther a planet from the sun, the longer it takes to orbit, the reason why Mercury has 88 days to orbit the sun, while the Earth has 365, and the other planet having different days to orbit.
+These observations were not made possible by Kepler alone, but with the help of Tycho Brahe, a Danish astronomer, who provided decades of precise observational data of the stars and the planets. With the help of Brahe's meticulous planetary observations, Kepler was able to form his findings into three fundamental principles, now famously known as the Kepler's Laws of Planetary Motion. The first law, which is the law of ellipses, the second law, which is the law of equal areas, and the third law, which is the law of harmonies. National Aeronautics and Space Administration or \textcite{nasa2024orbits} said that in Kepler's first law, each planet's orbit about the Sun is an ellipse, and that the planets follows the ellipse in its orbit, and these planets constantly change their distance to Sun as they go around their orbit. 
+
+\begin{figure}[H]
+    \centering
+    \caption{Kepler's First Law: Elliptical Orbits. Adapted from \textcite{theaveragescientist2023kepler}}
+    \label{fig:first-law}
+    \includegraphics[width=0.7\textwidth]{img/first-law.png}
+\end{figure}
+
+In the second law, the imaginary line joining a planet and the Sun sweeps equal areas of space during equal time intervals as the planet orbits, which means that the planets' speed varies, where a planet is moving fastest when it's near or at perihelion, while it is slowest when it's at aphelion, or the farthest as shown in Figure \ref{fig:second-law}.
+\begin{figure}[H]
+    \centering
+    \caption{Kepler's Second Law: Equal Areas. Adapted from \textcite{camogao2025modular}}
+    \label{fig:second-law}
+    \includegraphics[width=0.7\textwidth]{img/second-law.jpg}
+\end{figure}
+
+Lastly, the third law of Kepler mentioned that  the squares of the orbital periods of the planets are directly proportional to the cubes of the semi-major axes of their orbits, meaning, the farther a planet from the sun, the longer it takes to orbit, the reason why Mercury has 88 days to orbit the sun, while the Earth has 365, and the other planet having different days to orbit.
+
+\begin{figure}[H]
+    \centering
+    \caption{Kepler's Third Law: Harmonic Law. Adapted from \textcite{anjum2020timeline}}
+    \label{fig:third-law}
+    \includegraphics[width=0.5\textwidth]{img/third-law.jpg}
+\end{figure}
+
 
 Although Kepler managed to describe the planetary orbits and the rules of their motion, these laws do not determine the exact position of a planet along that ellipse at any given moment in time. As stated in the second law, a planet's speed constantly changes as it travels its elliptical path, knowing the precise location is complex to solve. To mathematically calculate a planet's exact position on its elliptical path, astronomers use a paramer known as the eccentric anomaly. As explained by \textcite{weisstein2026eccentric}, eccentric anomaly is the angle obtained by drawing the auxiliary circle of an ellipse The angle obtained by drawing the auxiliary circle of an ellipse with center O and focus F, and drawing a line perpendicular to the semimajor axis and intersecting it at A. In simpler terms, an eccentric anomaly helps determine the position of a planet or a celestial body along their elliptical orbit.
 
@@ -157,6 +194,22 @@ Because it utilizes up to the second derivative, Halley's method is more computa
 
 \subsection{ Multi-Criteria Decision Making \& Simple Additive Weighting}
 
+Multi-Criteria Decision Making (MCDM) refers to a mathematical framework used to evaluate and choose among multiple alternatives based on several, often conflicting, criteria. In computational and algorithmic analysis, no single performance metric dictates the absolute superiority of a method. An algorithm might converge in very few iterations but require immense computational power per step. MCDM provides a structured approach to balance these various performance metrics, such as convergence rate, mathematical efficiency, and runtime stability to determine the most optimal algorithm overall.
+
+One of the most straightforward and widely implemented MCDM techniques is Simple Additive Weighting (SAW), sometimes referred to as the weighted sum method \parencite{tzeng2011multiple}. The SAW method evaluates alternatives by calculating a cumulative weighted score for each option. The process involves two primary steps: data normalization and weighted evaluation. Because different criteria often have completely different units and scales, such as the discrete number of iterations versus execution time measured in microseconds the raw empirical data must first be transformed into a comparable, dimensionless scale. For criteria where a lower value is preferable, which are categorized as cost criteria (e.g., lower iteration count, lower execution time, and lower standard deviation), the normalization is typically calculated as:
+\begin{equation*}
+    r_{ij} = \dfrac{min_i(x_{ij})}{x_{ij}}
+\end{equation*}
+
+where xij is the raw performance value of alternative $i$ for criterion $j$, $min_i(x_{ij})$ is the best performance value among all alternatives for that criterion, and rij is the resulting normalized value. Once all data points are normalized, the overall SAW score Si for each alternative is computed by multiplying the normalized values by their respective predefined weights wj and summing the results:
+
+\begin{equation*}
+    S_i = \sum_{j=1}^{n} w_j r_{ij}
+\end{equation*}
+
+In this formulation, the assigned weights must sum to exactly 1, representing the proportional priority of each criterion. The algorithm with the highest final score Si is mathematically considered the most optimal choice, as it represents the best overall balance of the evaluated criteria \parencite{tzeng2011multiple}. By utilizing SAW, a holistic and objective ranking can be established between Newton-Raphson and Halley's methods without biasing the conclusion toward one specific performance metric.
+
+
 \section{Methods and Applications}
 
 The Keppler's First law relates the mean anomaly, M, and the eccentric anomaly, E, as follows:
@@ -211,6 +264,14 @@ The pseudo code of the Newton-Raphson method is as follows:
 \end{algorithmic}
 \end{algorithm}
 
+This code follows the exact steps of the Newton-Raphson algorithm. First, the algorithm takes in the function $f$, its derivative $f'$, the initial guess $x_0$, the error tolerance $tol$, and the maximum allowed iterations $max\_iter$. It sets our current guess ($x_{current}$) to $x_0$ and the iteration count to $0$, then starts a \texttt{while} loop. 
+
+Inside the loop, it evaluates the function ($f_x$) and its derivative ($f'_x$) at the current guess. It includes a safety check to see if the derivative is too small ($|f'_x| < \epsilon$), returning a divergence warning and stopping if it risks dividing by zero. Next, it calculates the new guess ($x_{next}$) by subtracting the ratio of $f_x$ over $f'_x$ from the current guess:
+
+\[ x_{next} = x_{current} - \frac{f(x_{current})}{f'(x_{current})} \]
+
+If the absolute difference between the new and old guess is smaller than our tolerance ($tol$), it successfully stops and returns the root. If not, it updates the current guess to $x_{next}$, adds one to the iteration count, and repeats the process until it converges or finishes the loop.
+
 \subsection{Halley's Method}
 
 	As for Halley's method, the second derivative of the function f(E) is required to compute the root. The second derivative f''(E) is as follows:
@@ -250,6 +311,12 @@ The pseudo code of Halley's method is as follows
     \State \Return $x_{current}, iter\_count$
 \end{algorithmic}
 \end{algorithm}
+
+For Halley's method, the algorithm structure is nearly identical to the Newton-Raphson algorithm but requires the second derivative ($f''$) as an additional input. It sets up the same starting values and enters the \texttt{while} loop. Inside the loop, it evaluates the function ($f_x$), the first derivative ($f'_x$), and the second derivative ($f''_x$). Instead of a simple ratio, the update step calculates the next guess ($x_{next}$) using the following second-order formula:
+
+\[ x_{next} = x_{current} - \frac{2 f(x_{current}) f'(x_{current})}{2 [f'(x_{current})]^2 - f(x_{current}) f''(x_{current})} \]
+
+Just like the first method, it checks if the absolute difference between $x_{next}$ and $x_{current}$ is less than the tolerance ($tol$). If the condition is met, it returns the newly found root and iteration count; otherwise, it updates the current guess to $x_{next}$, increases the iteration count, and continues looping.
 
 \subsection{Initial Value Approximations}
 
@@ -402,7 +469,7 @@ The results of the second case is shown in Table \ref{tab:test-case-2} where Hal
 \begin{table}[h]
     \centering
     \caption{Performance Metrics Comparison of Numerical Methods}
-    \label{test-case-2}
+    \label{tab:test-case-2}
     \vspace{2mm}
     \begin{tabular}{l c c c c c c}
         \toprule
@@ -499,10 +566,11 @@ While Table \ref{tab:saw-result-1} shows the individual winner per test case, Ta
 \section{Conclusion}
 
 In conclusion, the study evaluated the performance of two numerical root finding methods, the Newton-Raphson and Halley's numerical methods in solving Kepler's Equation for high-eccentricity orbits with e = 0.999. Upon analyzing four
+ distinct test cases with varying initial conditions ($E0$) as adapted from the study of \textcite{ozuomba2014comparative}, the study was able to identify the critical trade-offs between mathematical convergence and computational execution.
 
-distinct test cases with varying initial conditions ($E0$) as adapted from the study of \textcite{ozuomba2014comparative}, the study was able to identify the critical trade-offs between mathematical convergence and computational execution.
+The initial value, $E_0$, was found to have significant influence on the convergence for both methods. As the test case progressed from simple initial guess to a calculated and complex guess, the iterations  needed for both methods to converge decreased significantly.
 
-The findings of the study indicate that Halley's method is better in terms of mathematical convergence, requiring fewer iterations compared to the Newton-Raphson method to find a solution.  Newton-Raphson method also struggles with poor initial guess, as evident in test case 1, where it took 44 iterations to converge to a solution. On the other hand, the Newton-Raphson method showed higher computational efficiency in cases with better initial approximations and consistently achieving faster average runtimes (as low as 2.18 µs) most likely due to its lower algorithmic complexity compared to Halley's method which requires the first and the second derivatives of the function
+The findings of the study indicate that Halley's method is better in terms of mathematical convergence, requiring fewer iterations compared to the Newton-Raphson method to find a solution.  Newton-Raphson method also struggles with poor initial guess, as evident in test case 1, where it took 44 iterations to converge to a solution. On the other hand, the Newton-Raphson method showed higher computational efficiency in cases with better initial approximations and consistently achieving faster average runtimes (as low as 2.18 µs) most likely due to its lower algorithmic complexity compared to Halley's method which requires the first and the second derivatives of the function.
 
 Upon analysis using Simple Additive Weighting (SAW), where the criteria were iteration count, average runtime, and stability (standard deviation), a ranking that favored Halley's method was found. With a mean SAW score of $0.57$ against Newton-Raphson's $0.36$, Halley's method was shown to be a more reliable solver for solving the eccentric anomaly in Keppler's equation. While Newton-Raphson is little bit faster in some scenarios, Halley's method's is able to maintain rapid convergence under difficult initial conditions makes it the more effective choice.
 
