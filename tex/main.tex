@@ -436,7 +436,7 @@ Table \ref{tab:test-summary} below summarizes the parameters used in the numeric
         \toprule
         Test Case & $M$ (deg) & $e$ & $E_0$ \\
         \midrule
-        1 & \ang{7} & 0.999 & \SI{0.122173}{rad} or \ang{7} \\
+        1 & \ang{7} & 0.999 & \SI{0.122173} (\ang{7}) \\
         2 & \ang{7} & 0.999 & 0.6724 \\
         3 & \ang{7} & 0.999 & 0.9744 \\
         4 & \ang{7} & 0.999 & 0.9744 \\
@@ -456,8 +456,6 @@ The table \ref{tab:test-case-1}  below shows the results of the solutions of eac
         Method & Root (Rad) & Iterations & Avg ($\mu$s) & Std Dev ($\mu$s) & Best ($\mu$s) & Residual Error \\
         \midrule
          Halley & 0.912288 & 6 & 7.1471 & 0.0103 & 7.1252 & $5.55 \times 10^{-17}$ \\
-         Secant & 0.912288 & 7 & 4.6315 & 0.0087 & 4.6210 & $6.19 \times 10^{-14}$ \\
-         Fixed Point & 0.912276 & 26 & 8.5263 & 0.0149 & 8.4946 & $4.70 \times 10^{-06}$ \\
          Newton & 0.912288 & 44 & 30.8913 & 0.4835 & 30.5227 & $4.27 \times 10^{-12}$ \\
         \bottomrule
     \end{tabularx}
@@ -466,9 +464,9 @@ The table \ref{tab:test-case-1}  below shows the results of the solutions of eac
 The results of the second case is shown in Table \ref{tab:test-case-2} where Halley's method still outpaced the rest in terms of convergence with iteration of only 3. Newton followed with 5 iterations converging with the same residual. In terms of runtime, Fixed-point method took the longest with an average of 7 $\mu$s while Newton computed the fastest with only 3.49 $\mu$s followed closely by Halley's method of around 3.6 $\mu$s.
 
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
-    \caption{Performance Metrics Comparison of Numerical Methods}
+    \caption{Performance Comparison for Test Case 2}
     \label{tab:test-case-2}
     \vspace{2mm}
     \begin{tabular}{l c c c c c c}
@@ -477,8 +475,6 @@ The results of the second case is shown in Table \ref{tab:test-case-2} where Hal
         \midrule
         Halley      & 0.912288 & 3  & 3.5986 & 0.0432 & 3.5394 & $5.55 \times 10^{-17}$ \\
         Newton      & 0.912288 & 5  & 3.4938 & 0.0447 & 3.4495 & $5.55 \times 10^{-17}$ \\
-        Secant      & 0.912288 & 6  & 4.0360 & 0.0649 & 3.9674 & $1.33 \times 10^{-09}$ \\
-        Fixed Point & 0.912276 & 21 & 7.0683 & 0.3816 & 6.8655 & $4.65 \times 10^{-06}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -496,8 +492,6 @@ Halley's method still converged the fastest still with 3 iterations and a comput
         \midrule
         Halley      & 0.912288 & 3  & 3.6945 & 0.0112 & 3.6787 & $5.55 \times 10^{-17}$ \\
         Newton      & 0.912288 & 4  & 2.8724 & 0.0237 & 2.8420 & $5.55 \times 10^{-17}$ \\
-        Secant      & 0.912288 & 6  & 4.0717 & 0.0596 & 4.0346 & $3.24 \times 10^{-14}$ \\
-        Fixed Point & 0.912301 & 17 & 5.6210 & 0.0726 & 5.5643 & $5.07 \times 10^{-06}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -512,8 +506,6 @@ Table \ref{tab:test-case-4} shows the results for the last case, where Halley's 
         \midrule
         Halley      & 0.912288 & 2  & 2.5419 & 0.0071 & 2.5282 & $5.55 \times 10^{-17}$ \\
         Newton      & 0.912288 & 3  & 2.1880 & 0.0082 & 2.1728 & $5.55 \times 10^{-17}$ \\
-        Secant      & 0.912288 & 5  & 3.5023 & 0.0245 & 3.4785 & $3.16 \times 10^{-13}$ \\
-        Fixed Point & 0.912298 & 14 & 4.6783 & 0.0212 & 4.6555 & $3.91 \times 10^{-06}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
