@@ -340,18 +340,21 @@ Four initial value approximations of the eccentric anomaly in numerical methods 
         E_{04} = M + e [sin(M + e{sin( M + \phi)})]
     \end{equation*} 
     Where $\phi$ is defined with respect to the parameter values in Table \ref{tab:coefficients}
-    \begin{table}[h]
-    \centering
-    \caption{The values of coefficient A, B, C and D obtained for the three range of values of x. Adapted from \textcite{ozuomba2014comparative}}
-    \label{tab:coefficients}
-    \vspace{2mm}
-    \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|}
-        \hline
-         & Range of value of $e$ & A & B & C & D \\ \hline
-        1 & $0.5 < e \leq 1$ & -0.584013113 & 1.173439404 & 0.809460441 & 0.077357763 \\ \hline
-        2 & \begin{tabular}[c]{@{}c@{}}$0.01 \leq e \leq 0.5$\\ Or\\ M $< 1.1^\circ$\end{tabular} & -0.248393819 & 1.019165175 & 0.961260155 & 0.004043021 \\ \hline
-    \end{tabularx}
-\end{table}
+    \begin{equation*}
+        \phi = \dfrac{B \sin(M) + D\cos(M)}{\frac{1}{e} - A\sin(M) - C\cos(M)}
+    \end{equation*}
+    \begin{table}[H]
+        \centering
+        \caption{The values of coefficient A, B, C and D obtained for the three range of values of x. Adapted from \textcite{ozuomba2014comparative}}
+        \label{tab:coefficients}
+        \vspace{2mm}
+        \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|}
+            \hline
+            & Range of value of $e$ & A & B & C & D \\ \hline
+            1 & $0.5 < e \leq 1$ & -0.584013113 & 1.173439404 & 0.809460441 & 0.077357763 \\ \hline
+            2 & \begin{tabular}[c]{@{}c@{}}$0.01 \leq e \leq 0.5$\\ Or\\ M $< 1.1^\circ$\end{tabular} & -0.248393819 & 1.019165175 & 0.961260155 & 0.004043021 \\ \hline
+        \end{tabularx}
+    \end{table}
 
 \end{enumerate}
 
