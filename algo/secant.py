@@ -1,8 +1,6 @@
 from typing import Callable
 from typing import Optional, Tuple
 
-
-
 def secant_method(
     f: Callable[[float], float], 
     p0: float, 

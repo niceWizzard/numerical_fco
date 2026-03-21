@@ -1,7 +1,6 @@
 from typing import Callable
 from typing import Optional, Tuple
 
-
 def newtons_method(
     f: Callable[[float], float], 
     df: Callable[[float], float], 
