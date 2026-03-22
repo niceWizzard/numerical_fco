@@ -264,13 +264,7 @@ The pseudo code of the Newton-Raphson method is as follows:
 \end{algorithmic}
 \end{algorithm}
 
-This code follows the exact steps of the Newton-Raphson algorithm. First, the algorithm takes in the function $f$, its derivative $f'$, the initial guess $x_0$, the error tolerance $tol$, and the maximum allowed iterations $max\_iter$. It sets our current guess ($x_{current}$) to $x_0$ and the iteration count to $0$, then starts a \texttt{while} loop. 
-
-Inside the loop, it evaluates the function ($f_x$) and its derivative ($f'_x$) at the current guess. It includes a safety check to see if the derivative is too small ($|f'_x| < \epsilon$), returning a divergence warning and stopping if it risks dividing by zero. Next, it calculates the new guess ($x_{next}$) by subtracting the ratio of $f_x$ over $f'_x$ from the current guess:
-
-\[ x_{next} = x_{current} - \frac{f(x_{current})}{f'(x_{current})} \]
-
-If the absolute difference between the new and old guess is smaller than our tolerance ($tol$), it successfully stops and returns the root. If not, it updates the current guess to $x_{next}$, adds one to the iteration count, and repeats the process until it converges or finishes the loop.
+To implement the Newton-Raphson method, the function requires a few key inputs, the main equation $f$, its first derivative df, our initial guess $x_0$, the acceptable error margin $tol$, and a cutoff for the maximum number of iterations $max_{iter}$. We start by setting $x_{current}$ to our initial guess and initialize a counter. Inside the while loop, the code evaluates both the function and its derivative. To prevent the program from crashing due to a division by zero, we added a quick safety check. If the derivative is practically zero, it stops and warns us about possible divergence. Next, it computes the updated guess ($x_next$) using the standard Newton ratio. If this new guess is close enough to the old one, meaning the absolute difference is smaller than our tolerance limit. The loop finishes and returns the root. Otherwise, it updates the current guess, ticks the counter up by one, and tries again until it either finds the answer or hits the loop limit.
 
 \subsection{Halley's Method}
 
@@ -312,11 +306,8 @@ The pseudo code of Halley's method is as follows
 \end{algorithmic}
 \end{algorithm}
 
-For Halley's method, the algorithm structure is nearly identical to the Newton-Raphson algorithm but requires the second derivative ($f''$) as an additional input. It sets up the same starting values and enters the \texttt{while} loop. Inside the loop, it evaluates the function ($f_x$), the first derivative ($f'_x$), and the second derivative ($f''_x$). Instead of a simple ratio, the update step calculates the next guess ($x_{next}$) using the following second-order formula:
+The code for Halley's method is built on the exact same loop structure, but with one major addition, it needs the second derivative ($ddf$) of our function to work. Once the loop starts, it evaluates the function alongside both its first and second derivatives. Because Halley's method accounts for the actual curve of the graph, the math inside the loop is a bit heavier. Instead of a basic ratio, it calculates a specific numerator and denominator to form a much more precise correction factor, which is then subtracted from our current guess to get $x_{next}$. From there, the stopping logic is exactly the same as Newton's method. It checks if the gap between the new and old guess is within our allowed tolerance ($tol$). If it is, the program successfully returns our root; if not, it updates the values and loops again until it converges.
 
-\[ x_{next} = x_{current} - \frac{2 f(x_{current}) f'(x_{current})}{2 [f'(x_{current})]^2 - f(x_{current}) f''(x_{current})} \]
-
-Just like the first method, it checks if the absolute difference between $x_{next}$ and $x_{current}$ is less than the tolerance ($tol$). If the condition is met, it returns the newly found root and iteration count; otherwise, it updates the current guess to $x_{next}$, increases the iteration count, and continues looping.
 
 \subsection{Initial Value Approximations}
 
